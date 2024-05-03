@@ -4,6 +4,7 @@ import numpy as np
 from flask import Flask, render_template, Response, request, redirect, session, flash, url_for
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
+import psycopg2
 import HandTracking as ht
 
 app = Flask(__name__)
