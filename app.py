@@ -4,8 +4,9 @@ import numpy as np
 from flask import Flask, render_template, Response, request, redirect, session, flash, url_for
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
-import psycopg2
 import HandTracking as ht
+import psycopg2
+
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://admin:exirxPx26XyGlxdjLXMkrhC3afnQf8yK@dpg-coq66i5jm4es73ag2e7g-a.singapore-postgres.render.com/aircanvas_db"
