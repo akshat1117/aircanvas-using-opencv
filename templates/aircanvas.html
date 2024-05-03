@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hand Gesture Drawing</title>
+    <style>
+        *{
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body, html {
+            width: 100%;
+            height: 100%;
+            font-family: Arial, sans-serif;
+            position: relative; /* Add this line to allow positioning of child elements */
+        }
+        h1 {
+            text-align: center;
+        }
+        .color-button {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            margin: 5px;
+            cursor: pointer;
+            border: 2px solid black;
+            border-radius: 50%;
+        }
+        #drawing_container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+
+        /* Style for the link button */
+        .meeting-button {
+            position: absolute;
+            top: 20px; /* Adjust as needed */
+            left: 20px; /* Adjust as needed */
+            z-index: 1; /* Ensure the button is above the canvas */
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007bff; /* Blue */
+            border: none;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none; /* Remove default underline */
+            transition: background-color 0.3s ease;
+        }
+        .meeting-button:hover {
+            background-color: #0056b3; /* Darker blue */
+        }
+    </style>
+</head>
+<body>
+    <h1>Hand Gesture Drawing</h1>
+    <div>
+        <img id="video_feed" src="{{ url_for('video_feed') }}" width="1280" height="680" autoplay></img>
+    </div>
+    
+
+    <!-- Meeting Button -->
+    <a href="/meeting" class="meeting-button">Meeting</a>
+
+    <script>
+        // JavaScript code to handle drawing on the canvas and color selection
+        const canvas = document.getElementById('drawing_canvas');
+        const ctx = canvas.getContext('2d');
+        let isDrawing = false;
+        let currentColor = 'black';
+
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mouseup', stopDrawing);
+        canvas.addEventListener('mousemove', draw);
+
+        function startDrawing(e) {
+            isDrawing = true;
+            draw(e);
+        }
+
+        function stopDrawing() {
+            isDrawing = false;
+            ctx.beginPath();
+        }
+
+        function draw(e) {
+            if (!isDrawing) return;
+            ctx.lineWidth = 10;
+            ctx.lineCap = 'round';
+            ctx.strokeStyle = currentColor;
+            ctx.lineTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop);
+        }
+
+        function setColor(color) {
+            currentColor = color;
+        }
+    </script>
+</body>
+</html>
