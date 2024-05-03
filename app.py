@@ -7,7 +7,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import HandTracking as ht
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://admin:exirxPx26XyGlxdjLXMkrhC3afnQf8yK@dpg-coq66i5jm4es73ag2e7g-a.singapore-postgres.render.com/aircanvas_db"
 app.config["SECRET_KEY"] = "My SUper Secret Key"
 db = SQLAlchemy(app)
 
